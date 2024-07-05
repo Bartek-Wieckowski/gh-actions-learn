@@ -38,4 +38,4 @@ jobs:
       - name: Deploy
         run: |
           cd second-action-react-project
-          echo: "Deploying..."
+          echo "Deploying..."
