@@ -16,6 +16,7 @@ on:
       - 'feat/**'
     paths-ignore:
       - '.github/workflows/*'
+      - 'gh-actions-learn/second-action-react-project/**'
 
 jobs:
   deploy:
