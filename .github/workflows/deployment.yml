@@ -1,42 +1,57 @@
 name: Deploy Project
-on: [push, workflow_dispatch]
+
+on:
+  push:
+    paths-ignore:
+      - '.github/workflows/*'
+      - 'gh-actions-learn/events-deep/**'
+  workflow_dispatch:
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
         uses: actions/checkout@v3
+
       - name: Install NodeJS
         uses: actions/setup-node@v3
         with:
           node-version: 20
+
       - name: Install dependencies
         run: |
-          cd second-action-react-project
+          cd gh-actions-learn/second-action-react-project
           npm ci
+
       - name: Run tests
         run: |
-          cd second-action-react-project
+          cd gh-actions-learn/second-action-react-project
           npm test
+
   deploy:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Get code
         uses: actions/checkout@v3
+
       - name: Install NodeJS
         uses: actions/setup-node@v3
         with:
           node-version: 20
+
       - name: Install dependencies
         run: |
-          cd second-action-react-project
+          cd gh-actions-learn/second-action-react-project
           npm ci
+
       - name: Build project
         run: |
-          cd second-action-react-project
+          cd gh-actions-learn/second-action-react-project
           npm run build
+
       - name: Deploy
         run: |
-          cd second-action-react-project
+          cd gh-actions-learn/second-action-react-project
           echo "Deploying..."
