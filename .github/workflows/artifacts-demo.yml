@@ -1,0 +1,54 @@
+name: Deploy website
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/workflows/*'
+      - 'gh-actions-learn/second-action-react-project/**'
+      - 'gh-actions-learn/events-deep/**'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          cd artifacts
+          npm ci
+      - name: Lint code
+        run: |
+          cd artifacts
+          npm run lint
+      - name: Test code
+        run: |
+          cd artifacts
+          npm run test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          cd artifacts
+          npm ci
+      - name: Build website
+        run: |
+          cd artifacts
+          npm run build
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-files
+          path: artifacts/dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        run: |
+          cd artifacts
+          echo "Deploying..."
