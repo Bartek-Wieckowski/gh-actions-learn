@@ -52,6 +52,4 @@ jobs:
           npm run build
 
       - name: Deploy
-        run: |
-          cd gh-actions-learn/second-action-react-project
-          echo "Deploying..."
+        run: echo "Deploying..."

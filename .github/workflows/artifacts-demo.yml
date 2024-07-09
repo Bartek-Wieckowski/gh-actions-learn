@@ -49,6 +49,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy
-        run: |
-          cd artifacts
-          echo "Deploying..."
+        run: echo "Deploying..."
